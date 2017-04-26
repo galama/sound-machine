@@ -1,0 +1,22 @@
+{
+  "name": "color",
+  "authors": [
+    "Nemanja Lazic <nemanja.lazic87@gmail.com>",
+    "Vukasin Stancevic"
+  ],
+  "description": "",
+  "main": "src/index.html",
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "jquery-ui": "^1.12.1"
+  }
+}
