@@ -24,6 +24,14 @@ svg,
 #canvas {
   z-index: -1;
   border: 1px dashed gray;
+  position: relative;
+}
+
+.dot {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: black;
 }
 
 .process {

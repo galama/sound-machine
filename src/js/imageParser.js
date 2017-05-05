@@ -1,3 +1,4 @@
+$("#processbtn").prop('disabled', true);
 
 loadImageToCanvas = function(e) {
     var reader = new FileReader();
@@ -7,18 +8,27 @@ loadImageToCanvas = function(e) {
         
         img.onload = function() {
 
+			var me = this;
+
 			jQuery('<img/>', {
 				src: event.target.result,
+				id: "image",
 				class: 'image',
-				style: 'width:' + this.width +'px; height:' + this.width + 'px;'
-			}).appendTo('#canvas')
-			.resizable()
-			.draggable();
-        }
+				style: "width:100%; height:100%"
+			}).appendTo('#imgwrapper');
+
+			$("#imgwrapper")
+				.width(me.width)
+				.height(me.height)
+				.resizable()
+				.draggable();
+
+            $("#processbtn").prop('disabled', false);
+        };
 
         img.src = event.target.result;
 
-    }
+    };
     reader.readAsDataURL(e.target.files[0]);
 };
 
@@ -32,7 +42,7 @@ $("#svg")
 })
 .mouseover(function() {
 	$("#canvas").css('z-index', 10);
-})
+});
 
 $("#canvas")
 .mouseover(function() {
