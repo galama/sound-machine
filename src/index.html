@@ -4,10 +4,9 @@
 	<title></title>
 
 	<link rel="stylesheet" type="text/css" href="../bower_components/bootstrap/dist/css/bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" href="../bower_components/bootstrap/dist/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 	<link rel="stylesheet" type="text/css" href="css/jquery-ui.css">
-
+	<link rel="stylesheet" href="js/cropperjs/dist/cropper.min.css">
 </head>
 <body>
 
@@ -19,26 +18,21 @@
   </div>
   <div class="row">
   	<div class="c">
-		<svg height="600" width="1200" id="svg">
-			<line x1="50" y1="50" x2="100" y2="50" class="corner" />
-			<line x1="50" y1="45" x2="50" y2="100" class="corner" />
-
-			<line x1="1150" y1="550" x2="1100" y2="550" class="corner" />
-			<line x1="1150" y1="555" x2="1150" y2="500" class="corner" /> 
-		</svg>
-		<div id="canvas"><div id="imgwrapper"></div> </div>
+		<div id="canvas">
+			<div id="imgwrapper"></div>
+		</div>
   	</div>
-   </div>
+  </div>
    <div class="row">
    		<center>
-   			<button id="processbtn" class="btn btn-info process" onclick="process();">PROCESS</button>
+   			<button id="processbtn" class="btn btn-info process">PROCESS</button>
    		</center>
    </div>
 </div>
 
 <script type="text/javascript" src="../bower_components/jquery/dist/jquery.min.js"></script>
 <script type="text/javascript" src="../bower_components/jquery-ui/jquery-ui.min.js"></script>
-<script type="text/javascript" src="js/color-thief.min.js"></script>
+<script type="text/javascript" src="js/cropperjs/dist/cropper.min.js"></script>
 <script type="text/javascript" src="js/main.js"></script>
 <script type="text/javascript" src="js/imageParser.js"></script>
 
