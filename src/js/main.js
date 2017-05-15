@@ -20,13 +20,13 @@ const GRID_CELLS = 9;
  * @type {number}
  * Grid start X
  */
-const GRID_START_X = 83;
+const GRID_START_X = 78;
 
 /**
  * @type {number}
  * GRID start Y
  */
-const GRID_START_Y = 69;
+const GRID_START_Y = 62;
 
 /**
  * @type {number}
@@ -38,7 +38,7 @@ const CELL_WIDTH = 63;
  * @type {number}
  * cell height
  */
-const CELL_HEIGHT = 37;
+const CELL_HEIGHT = 38;
 
 const CELL_BORDER = 3;
 
@@ -63,6 +63,8 @@ function process() {
 
     canvas.width = tempImg.width;
     canvas.height = tempImg.height;
+
+   // document.body.appendChild(canvas);
 
     var img = new Image();
     img.src = tempImg.src;
@@ -108,22 +110,19 @@ function drowTable(grid, tempImg) {
     html = "";
 
     for (var i = 0; i < GRID_CELLS; i++) {
-        for (var j = 0; j < GRID_CELLS; j++) {
+        for (var j = 1; j < GRID_CELLS; j++) {
 
             x = GRID_START_X + CELL_WIDTH * j + CELL_WIDTH / 2 + CELL_BORDER;
             y = GRID_START_Y + CELL_HEIGHT * i + CELL_HEIGHT / 2 + CELL_BORDER;
 
-
-            html += "<span style='background: " + getColor(grid[i][j]) + "'>test</span>"
-            //
-            // context.rect(x,y,CELL_WIDTH,CELL_HEIGHT);
-            // context.fillStyle = getColor(grid[i][j]);
-            // context.fill();
-
+            html += "<span style='background: " + getColor(grid[i][j]) + "'> 00 </span>";
+            if (j !== 0 && j % 8 === 0) {
+                html += "<br/>";
+            }
         }
     }
 
-    document.body.innerHTML = html;
+    document.body.innerHTML += html;//= html;
 }
 
 function getColor(color) {
