@@ -38,3 +38,14 @@ body {
     margin: 20px auto;
     border-radius: 15px;
 }
+
+.color-row {
+    width: 63px;
+    height: 38px;
+    border: 1px solid black;
+}
+
+#sequencer {
+    margin: 20px auto;
+    width: 544px;
+}
