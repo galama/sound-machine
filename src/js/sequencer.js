@@ -11,11 +11,13 @@ define([
     var sequence = {
         kick: [],
         snare: [],
+        clap: [],
         closehh: [],
         openhh: [],
-        tom1: [],
-        tom2: [],
-        tom3: []
+        rim: [],
+        tom: [],
+        sound1: [],
+        sound2: []
     };
 
     var play = function () {
@@ -34,37 +36,39 @@ define([
 
                 RGB = _grid[i][j];
 
-                if (i < 7) {
+                color = RGB.r + RGB.g + RGB.b;
+                var percent = (color - yMin) / (yMax - yMin);
+                var velocity = percent * (xMax - xMin) + xMin;
 
-                    color = RGB.r + RGB.g + RGB.b;
-                    var percent = (color - yMin) / (yMax - yMin);
-                    var velocity = percent * (xMax - xMin) + xMin;
+                velocity = (velocity < 0.00) ? 0 : velocity = +velocity.toFixed(2);
 
-                    velocity = (velocity < 0.00) ? 0 : velocity = +velocity.toFixed(2);
-
-                    if (i === 0) {
-                        sequence.kick[j] = velocity;
-                    }
-                    else if (i === 1) {
-                        sequence.snare[j] = velocity;
-                    }
-                    else if (i === 2) {
-                        sequence.closehh[j] = velocity;
-                    }
-                    else if (i === 3) {
-                        sequence.openhh[j] = velocity;
-                    }
-                    else if (i === 4) {
-                        sequence.tom1[j] = velocity;
-                    }
-                    else if (i === 5) {
-                        sequence.tom2[j] = velocity;
-                    }
-                    else {
-                        sequence.tom3[j] = velocity;
-                    }
-
+                if (i === 0) {
+                    sequence.kick[j] = velocity;
                 }
+                else if (i === 1) {
+                    sequence.snare[j] = velocity;
+                }
+                else if (i === 2) {
+                    sequence.clap[j] = velocity;
+                }
+                else if (i === 3) {
+                    sequence.closehh[j] = velocity;
+                }
+                else if (i === 4) {
+                    sequence.openhh[j] = velocity;
+                }
+                else if (i === 5) {
+                    sequence.rim[j] = velocity;
+                }
+                else if (i === 6) {
+                    sequence.tom[j] = velocity;
+                }
+                else if (i === 7) {
+                    sequence.sound1[j] = velocity;
+                }
+                else {
+                    sequence.sound2[j] = velocity;
+                }              
             }
         }
 
