@@ -20,47 +20,47 @@ define([
     };
 
     var kick = function (vel) {
-        playSound(buffers.kick, vel);
+        playSound(buffers.kick, vel, false);
     };
 
     var snare = function (vel) {
-        playSound(buffers.snare, vel);
+        playSound(buffers.snare, vel, false);
     };
 
 
     var closehh = function (vel) {
-        playSound(buffers.closehh, vel);
+        playSound(buffers.closehh, vel, false);
     };
 
 
     var openhh = function (vel) {
-        playSound(buffers.openhh, vel);
+        playSound(buffers.openhh, vel, false);
     };
 
 
     var tom1 = function (vel) {
-        playSound(buffers.openhh, vel);
+        playSound(buffers.openhh, vel, false);
     };
 
 
     var tom2 = function (vel) {
-        playSound(buffers.openhh, vel);
+        playSound(buffers.openhh, vel, false);
     };
 
 
     var tom3 = function (vel) {
-        playSound(buffers.openhh, vel);
+        playSound(buffers.openhh, vel, false);
     };
 
     var sound1 = function(pitch) {
-        playSound(buffers.sound1, pitch);
+        playSound(buffers.sound1, pitch, pitch );
     }
 
     var sound2 = function(pitch) {
-        playSound(buffers.sound2, pitch );  
+        playSound(buffers.sound2, pitch, pitch );  
     }
 
-    function playSound(buffer,vel) {
+    function playSound(buffer,vel, pitch) {
 
         if (vel == 0) {
             return;
@@ -70,6 +70,11 @@ define([
         var gainNode = context.createGain();
 
         source.buffer = buffer;
+
+        if (pitch) {
+            source.playbackRate.value = 1 + pitch;
+        }
+
 
         source.connect(gainNode);
         gainNode.gain.value = vel;
