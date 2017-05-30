@@ -60,7 +60,6 @@ define([
         reader.readAsDataURL(e.target.files[0]);
     };
 
-
     var imageLoader = {
 
         init: function() {
@@ -72,9 +71,53 @@ define([
             var fileInput = $("#imageLoader");
             fileInput.on("change", loadImageToCanvas);
 
+        },
+
+        loadPhotoToCanvas: function(data) {
+            $("#imgwrapper").empty();
+
+            var img = new Image();
+            var button = document.getElementById('processbtn');
+
+            img.onload = function() {
+                var me = this;
+                jQuery('<img/>', {
+                    src: data,
+                    id: "image",
+                    class: 'image',
+                    style: "width:100%; height:100%"
+                }).appendTo('#imgwrapper');
+
+                $("#imgwrapper")
+                    .width(me.width)
+                    .height(me.height)
+
+                var image = document.querySelector('#image');
+                var cropper = new Cropper(image, {
+                    movable: false,
+                    zoomable: false,
+                    rotatable: false,
+                    scalable: false
+                });
+
+                button.onclick = function () {
+                    var croppedCanvas;
+                    croppedCanvas = cropper.getCroppedCanvas();
+                    $("#imgwrapper").empty();
+                    jQuery('<img/>', {
+                        src: croppedCanvas.toDataURL(),
+                        id: "image",
+                        class: 'image',
+                        style: "width:100%; height:100%"
+                    }).appendTo('#imgwrapper');
+
+                    imageParser.process();
+                };
+                    $("#processbtn").prop('disabled', false);
+                };
+
+                img.src = data;   
         }
-
-
         
     };
 
