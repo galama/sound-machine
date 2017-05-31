@@ -1,6 +1,7 @@
 define([
-    'jquery'
-], function($) {
+    'jquery',
+    'tone'
+], function($,Tone) {
     'use strict';
 
     var _sequence = "";
@@ -20,85 +21,50 @@ define([
     };
 
     var kick = function (vel) {
-        playSound(buffers.kick, vel, false);
+        buffers.kick.triggerAttack(0, "+0.1", vel);
     };
 
     var snare = function (vel) {
-        playSound(buffers.snare, vel, false);
+        buffers.snare.triggerAttack(0, "+0.1", vel);
     };
 
+    var clap = function (vel) {
+        buffers.clap.triggerAttack(0, "+0.1", vel);
+    };
 
     var closehh = function (vel) {
-        playSound(buffers.closehh, vel, false);
+        buffers.closehh.triggerAttack(0, "+0.1", vel);
     };
 
 
     var openhh = function (vel) {
-        playSound(buffers.openhh, vel, false);
+        buffers.openhh.triggerAttack(0, "+0.1", vel);
     };
 
 
-    var tom1 = function (vel) {
-        playSound(buffers.openhh, vel, false);
+    var rim = function (vel) {
+        buffers.rim.triggerAttack(0, "+0.1", vel);
     };
 
 
-    var tom2 = function (vel) {
-        playSound(buffers.openhh, vel, false);
+    var tom = function (vel) {
+        buffers.tom.triggerAttack(0, "+0.1", vel);
     };
 
-
-    var tom3 = function (vel) {
-        playSound(buffers.openhh, vel, false);
-    };
 
     var sound1 = function(pitch) {
-        playSound(buffers.sound1, pitch, pitch );
-    }
+        buffers.sound1.triggerAttack(pitch, "+0.1", pitch);
+    };
 
     var sound2 = function(pitch) {
-        playSound(buffers.sound2, pitch, pitch );  
-    }
-
-    function playSound(buffer,vel, pitch) {
-
-        if (vel == 0) {
-            return;
-        }
-
-        var source = context.createBufferSource();
-        var gainNode = context.createGain();
-
-        source.buffer = buffer;
-
-        if (pitch) {
-            source.playbackRate.value = 1 + pitch;
-        }
-
-
-        source.connect(gainNode);
-        gainNode.gain.value = vel;
-
-        gainNode.connect(context.destination);
-
-        source.start(0);
-    }
+        buffers.sound2.triggerAttack(pitch, "+0.1", pitch);
+    };
 
 
     function loadSound(buf,url) {
-        var request = new XMLHttpRequest();
-        request.open('GET', url, true);
-        request.responseType = 'arraybuffer';
-
-        // Decode asynchronously
-        request.onload = function() {
-            context.decodeAudioData(request.response, function(buffer) {
-                buffers[buf] = buffer;
-            }, function () {
-                console.log('error!');
-            });
-        };
-        request.send();
+        buffers[buf] = new Tone.Sampler(url, function () {
+            console.log('sound: "' + url + '", loaded!');
+        }).toMaster();
     }
 
     var player = {
@@ -120,11 +86,11 @@ define([
 
                     kick(_sequence.kick[i]);
                     snare(_sequence.snare[i]);
-                    closehh(_sequence.clap[i]);
-                    openhh(_sequence.closehh[i]);
-                    tom1(_sequence.openhh[i]);
-                    tom2(_sequence.rim[i]);
-                    tom3(_sequence.tom[i]); 
+                    clap(_sequence.clap[i]);
+                    closehh(_sequence.closehh[i]);
+                    openhh(_sequence.openhh[i]);
+                    rim(_sequence.rim[i]);
+                    tom(_sequence.tom[i]);
                     sound1(_sequence.sound1[i]);
                     sound2(_sequence.sound2[i]);
 
@@ -134,14 +100,13 @@ define([
 
                         kick(_sequence.kick[i]);
                         snare(_sequence.snare[i]);
-                        closehh(_sequence.clap[i]);
-                        openhh(_sequence.closehh[i]);
-                        tom1(_sequence.openhh[i]);
-                        tom2(_sequence.rim[i]);
-                        tom3(_sequence.tom[i]); 
+                        clap(_sequence.clap[i]);
+                        closehh(_sequence.closehh[i]);
+                        openhh(_sequence.openhh[i]);
+                        rim(_sequence.rim[i]);
+                        tom(_sequence.tom[i]);
                         sound1(_sequence.sound1[i]);
                         sound2(_sequence.sound2[i]);
-
 
                         i++;
 
@@ -227,15 +192,15 @@ define([
                 alert('Web Audio API is not supported in this browser');
             }
 
-            loadSound("kick", "sounds/k.wav");
-            loadSound("snare", "sounds/s.wav");
-            loadSound("clap", "sounds/c.wav");
-            loadSound("closehh", "sounds/hh.wav");
-            loadSound("openhh", "sounds/ohh.wav");
-            loadSound("rim", "sounds/r.wav");
-            loadSound("tom", "sounds/t.wav");
-            loadSound("sound1", "sounds/melo1.wav");
-            loadSound("sound2", "sounds/melo2.wav");
+            loadSound("kick", "./sounds/k.wav");
+            loadSound("snare", "./sounds/s.wav");
+            loadSound("clap", "./sounds/c.wav");
+            loadSound("closehh", "./sounds/hh.wav");
+            loadSound("openhh", "./sounds/ohh.wav");
+            loadSound("rim", "./sounds/r.wav");
+            loadSound("tom", "./sounds/t.wav");
+            loadSound("sound1", "./sounds/melo1.wav");
+            loadSound("sound2", "./sounds/melo2.wav");
 
         },
         play: function(sequence) {
