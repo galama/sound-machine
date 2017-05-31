@@ -28,8 +28,6 @@ define([
         var yMax = 0;
         var yMin = 765;
 
-
-
         for (var i = 0, c =_grid.length; i < c; i++) {
 
             for (var j = 0, cc = _grid[i].length; j < cc; j++) {
@@ -37,6 +35,7 @@ define([
                 RGB = _grid[i][j];
 
                 color = RGB.r + RGB.g + RGB.b;
+
                 var percent = (color - yMin) / (yMax - yMin);
                 var velocity = percent * (xMax - xMin) + xMin;
 

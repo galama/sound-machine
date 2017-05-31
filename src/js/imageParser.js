@@ -12,6 +12,8 @@ define([
     const CELL_HEIGHT = 38;
     const CELL_BORDER = 3;
 
+    const COLOR_TOLERANCE = 350;
+
     var canvas = null;
 
     var grid = [];
@@ -76,14 +78,28 @@ define([
 
                         cellData = context.getImageData(x, y, tempImg.width, tempImg.height);
 
-                        context.rect(x,y,2,2);
-                        context.fillStyle = "red";
-                        context.fill();
+                        var _colorTolerance = 765 - (cellData.data[0] + cellData.data[1]  + cellData.data[2]);
 
-                        grid[i][j] = {
-                            r: cellData.data[0],
-                            g: cellData.data[1],
-                            b: cellData.data[2]
+                        if (j === 0) {
+                            grid[i][j] = {
+                                r: 255,
+                                g: 255,
+                                b: 255
+                            }
+                        } else {
+                            if (_colorTolerance < COLOR_TOLERANCE) {
+                                grid[i][j] = {
+                                    r: 255,
+                                    g: 255,
+                                    b: 255
+                                }
+                            } else {
+                                grid[i][j] = {
+                                    r: cellData.data[0],
+                                    g: cellData.data[1],
+                                    b: cellData.data[2]
+                                }
+                            }
                         }
                     }
                 }
